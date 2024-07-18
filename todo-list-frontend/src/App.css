@@ -1,0 +1,15 @@
+.navbar-logo {
+    height: 75px; /* Adjust the height as needed */
+    width: auto;
+    filter: invert(1) brightness(2);
+}
+
+.navbar-toggler {
+    background-color: red;
+    height: 50px;
+    width: 50px;
+}
+
+/* .container {
+    width: 90%;
+} */
