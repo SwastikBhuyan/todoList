@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../contexts/userContext"; // Import UserContext
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
@@ -15,22 +15,24 @@ export default function LoginPage() {
         if (localUsername === "admin" && password === "admin") {
             console.log("login successful");
             setUsername(localUsername); // Set username in context
-            console.log({username})
+            console.log({ username });
             setError("");
             // Optionally redirect to the welcome page
             // window.location.href = "/welcome";
-            navigate("/welcome")
+            navigate("/welcome");
         } else {
             setError("Invalid username or password");
         }
-    }
+       }
 
     return (
         <div className="container mt-5">
             <h1 className="text-center mb-4">Login</h1>
             <form onSubmit={handleSubmit} className="w-50 mx-auto">
                 <div className="form-group mb-3">
-                    <label htmlFor="username" className="form-label">Username</label>
+                    <label htmlFor="username" className="form-label">
+                        Username
+                    </label>
                     <input
                         type="text"
                         id="username"
@@ -41,7 +43,9 @@ export default function LoginPage() {
                     />
                 </div>
                 <div className="form-group mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">
+                        Password
+                    </label>
                     <input
                         type="password"
                         id="password"
@@ -52,7 +56,9 @@ export default function LoginPage() {
                     />
                 </div>
                 {error && <div className="alert alert-danger">{error}</div>}
-                <button type="submit" className="btn btn-primary w-100">Login</button>
+                <button type="submit" className="btn btn-primary w-100">
+                    Login
+                </button>
             </form>
         </div>
     );
