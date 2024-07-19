@@ -1,5 +1,8 @@
 export default function ErrorPage() {
     return (
-        <h1>This is an error page</h1>
+        <div className="m-5">
+            <h1>Oops, you landed on an unidentified URL!</h1>
+            <p className="mt-5">We are working on it!</p>
+        </div>
     )
 }

@@ -29,3 +29,7 @@
 .logoutMessage > p {
     font-size: 20px;
 }
+
+.App {
+    text-align: center;
+}

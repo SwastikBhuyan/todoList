@@ -20,7 +20,7 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/logout" element={<LogoutPage />} />
 
-                    <Route path="*" component={ErrorPage} />
+                    <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </div>
             <FooterComponent />
