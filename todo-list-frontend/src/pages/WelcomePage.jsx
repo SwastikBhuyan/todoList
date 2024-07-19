@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
 import { UserContext } from "../contexts/userContext"; // Import UserContext
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function WelcomePage() {
     const { username } = useContext(UserContext); // Get username from context
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        //to-do clear context before logout
+        navigate("/logout")
+    }
 
     return (
         <div className="container mt-5">
@@ -18,9 +25,9 @@ export default function WelcomePage() {
                 <Link to="/todos" className="btn btn-primary mx-2">
                     View Todos
                 </Link>
-                <Link to="/logout" className="btn btn-secondary mx-2">
+                <button className="btn btn-secondary mx-2" onClick={handleLogout}>
                     Logout
-                </Link>
+                </button>
             </div>
         </div>
     );

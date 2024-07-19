@@ -1,9 +1,17 @@
 // src/components/HeaderComponent.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/taskly-logo.png";
 
 const HeaderComponent = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        //to-do clear context before logout
+        navigate("/logout")
+    }
+
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="container d-flex justify-content-between align-items-center">
@@ -26,7 +34,7 @@ const HeaderComponent = () => {
                 </div>
                 <ul className="navbar-nav mb-0">
                     <li className="nav-item">
-                        <Link to="/logout" className="nav-link text-white">
+                        <Link to="/logout" className="nav-link text-white" onClick={handleLogout}>
                             Logout
                         </Link>
                     </li>
