@@ -15,7 +15,6 @@ export default function LoginPage() {
         if (localUsername === "admin" && password === "admin") {
             console.log("login successful");
             setUsername(localUsername); // Set username in context
-            console.log({ username });
             setError("");
             // Optionally redirect to the welcome page
             // window.location.href = "/welcome";

@@ -14,6 +14,7 @@ export default function ListTodosPage() {
         const fetchTodos = async () => {
             try {
                 const response = await getTodos(username);
+                console.log("list todos use eff",response)
                 setTodos(response.data); // Set todos from response
             } catch (error) {
                 console.error("Error fetching todos:", error);
@@ -25,11 +26,6 @@ export default function ListTodosPage() {
         fetchTodos();
     }, [username]);
 
-    // useEffect(() => refreshTodos(),[])
-
-    // function refreshTodos() {
-    //     getTodos(u)
-    // }
 
     // Handle deleting a todo
     const handleDelete = async (id) => {
@@ -52,7 +48,6 @@ export default function ListTodosPage() {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Username</th>
                         <th>Description</th>
                         <th>Target Date</th>
@@ -64,7 +59,6 @@ export default function ListTodosPage() {
                 <tbody>
                     {todos.map((todo) => (
                         <tr key={todo.id}>
-                            <td>{todo.ixd}</td>
                             <td>{todo.username}</td>
                             <td>{todo.description}</td>
                             <td>{todo.targetDate}</td>
