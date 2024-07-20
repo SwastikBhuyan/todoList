@@ -15,7 +15,7 @@ function App() {
             <HeaderComponent />
             <div className="container">
                 <Routes>
-                    <Route path="/" element={<WelcomePage />} />
+                    <Route path="/" element={<LoginPage />} />
                     <Route path="/welcome" element={<WelcomePage />} />
                     <Route path="/todos" element={<ListTodosPage />} />
                     <Route path="/login" element={<LoginPage />} />

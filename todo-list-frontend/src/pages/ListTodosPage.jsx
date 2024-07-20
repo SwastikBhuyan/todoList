@@ -1,25 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// src/pages/ListTodosPage.jsx
 
-const todos = [
-    {
-        id: 1,
-        username: "user1",
-        description: "Learn React",
-        targetDate: "2024-08-01",
-        isDone: false,
-    },
-    {
-        id: 2,
-        username: "user2",
-        description: "Learn Spring Boot",
-        targetDate: "2024-08-02",
-        isDone: true,
-    },
-    // Add more sample todos as needed
-];
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getTodos, deleteTodo } from "../api/TodoApi";
 
 export default function ListTodosPage() {
+    const [todos, setTodos] = useState([]); // State to store todos
+    const [loading, setLoading] = useState(true); // State to manage loading state
+    const username = "admin"; // Example username; replace with dynamic value if needed
+
+    // Fetch todos when the component mounts
+    useEffect(() => {
+        const fetchTodos = async () => {
+            try {
+                const response = await getTodos(username);
+                setTodos(response.data); // Set todos from response
+            } catch (error) {
+                console.error("Error fetching todos:", error);
+            } finally {
+                setLoading(false); // Set loading to false after fetch
+            }
+        };
+
+        fetchTodos();
+    }, [username]);
+
+    // useEffect(() => refreshTodos(),[])
+
+    // function refreshTodos() {
+    //     getTodos(u)
+    // }
+
+    // Handle deleting a todo
+    const handleDelete = async (id) => {
+        try {
+            await deleteTodo(username, id); // Delete todo by ID
+            setTodos(todos.filter((todo) => todo.id !== id)); // Remove deleted todo from state
+        } catch (error) {
+            console.error("Error deleting todo:", error);
+        }
+    };
+
+    // Show loading indicator while fetching data
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="container mt-5">
             <h1 className="text-center mb-4">Todos</h1>
@@ -38,7 +64,7 @@ export default function ListTodosPage() {
                 <tbody>
                     {todos.map((todo) => (
                         <tr key={todo.id}>
-                            <td>{todo.id}</td>
+                            <td>{todo.ixd}</td>
                             <td>{todo.username}</td>
                             <td>{todo.description}</td>
                             <td>{todo.targetDate}</td>
@@ -58,7 +84,10 @@ export default function ListTodosPage() {
                                 </Link>
                             </td>
                             <td>
-                                <button className="btn btn-danger">
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => handleDelete(todo.id)}
+                                >
                                     Delete
                                 </button>
                             </td>

@@ -1,43 +1,54 @@
 // src/pages/TodoFormPage.jsx
+
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getTodo, createTodo, updateTodo } from "../api/TodoApi";
 
 export default function TodoFormPage() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const [description, setDescription] = useState("");
-    const [targetDate, setTargetDate] = useState("");
-    const [isDone, setIsDone] = useState(false);
+    const { id } = useParams(); // Get ID from URL parameters
+    const navigate = useNavigate(); // Hook to navigate programmatically
+    const [username, setUsername] = useState(""); // State for username
+    const [description, setDescription] = useState(""); // State for description
+    const [targetDate, setTargetDate] = useState(""); // State for target date
+    const [isDone, setIsDone] = useState(false); // State for done status
 
+    // Fetch the todo details if ID is present (for update case)
     useEffect(() => {
         if (id) {
-            // Fetch the todo by id and set the initial values
-            // Replace this with your actual API call
             const fetchTodo = async () => {
-                const response = await fetch(`your_api_endpoint/todos/${id}`);
-                const todo = await response.json();
-                setUsername(todo.username);
-                setDescription(todo.description);
-                setTargetDate(todo.targetDate);
-                setIsDone(todo.isDone);
+                try {
+                    const response = await getTodo("user1", id); // Replace "user1" with dynamic username
+                    const todo = response.data;
+                    setUsername(todo.username);
+                    setDescription(todo.description);
+                    setTargetDate(todo.targetDate);
+                    setIsDone(todo.isDone);
+                } catch (error) {
+                    console.error("Error fetching todo:", error);
+                }
             };
+
             fetchTodo();
         }
     }, [id]);
 
-    function handleSubmit(e) {
+    // Handle form submission for adding or updating a todo
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (id) {
-            // Logic to update the todo
-            console.log("Updating todo:", { id, username, description, targetDate, isDone });
-        } else {
-            // Logic to add a new todo
-            console.log("Adding new todo:", { username, description, targetDate, isDone });
+
+        const todo = { username, description, targetDate, isDone };
+
+        try {
+            if (id) {
+                await updateTodo("user1", id, todo); // Update todo if ID is present
+            } else {
+                await createTodo("user1", todo); // Create new todo if no ID
+            }
+            navigate("/todos"); // Navigate back to todos list after submission
+        } catch (error) {
+            console.error("Error saving todo:", error);
         }
-        // Optionally redirect back to the todos list
-        navigate("/todos");
-    }
+    };
 
     return (
         <div className="container mt-5">
